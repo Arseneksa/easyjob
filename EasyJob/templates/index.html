@@ -46,7 +46,7 @@
 						<h6>BIENVENU SUR EASYJOB</h6>
 						<h2>TROUVEZ L'EMPLOI DE VOS REVES EN UN CLIC</h2>
 						<p>Recherchez des offres d'emploi dans votre localité .</p>
-						<a class="btn theme_btn  button_hover wow slideInLeft" href="{% url 'demandeur_emploi' %}">Commencer  </a>
+						<a class="btn theme_btn  button_hover wow bounceInUp" href="{% url 'demandeur_emploi' %}">Commencer  </a>
                     </div>
                     <span id="depart"></span>
 
@@ -110,7 +110,7 @@
                 </div>
     
                   
-                    <div class="row mb_30 wow slideInDown ">
+                    <div class="row mb_30 wow slideInLeft ">
                         
                          {% for job in offres_proche %} 
                         <div class="col-lg-3 col-sm-6">
@@ -134,7 +134,7 @@
                     <h2 class="title_color">OFFRES LES PLUS RECENTES</h2>
                 </div>
                   
-                    <div class="row mb_30 wow slideLeft ">
+                    <div class="row mb_30 wow slideInRight ">
                          {% for job in offres_recente %} 
                         <div class="col-lg-3 col-sm-6">
                             <div class="accomodation_item text-center" style="border: 1px dotted; padding: 8px; padding-top: 15px; height: 450px; width: 100%;">

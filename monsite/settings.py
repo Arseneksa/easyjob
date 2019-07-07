@@ -33,12 +33,14 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'django.contrib.admin',
-    'django.contrib.auth',
-    'django.contrib.contenttypes',
-    'django.contrib.sessions',
-    'django.contrib.messages',
-    'django.contrib.staticfiles',
-    'EasyJob',
+     'django.contrib.auth',
+     'django.contrib.contenttypes',
+     'django.contrib.sessions',
+     'django.contrib.messages',
+     'django.contrib.staticfiles',
+     'bootstrap' , 
+     'fontawesome' , 
+     'EasyJob',
 ]
 
 MIDDLEWARE = [
@@ -79,16 +81,18 @@ WSGI_APPLICATION = 'monsite.wsgi.application'
 # https://docs.djangoproject.com/en/2.1/ref/settings/#databases
 
 DATABASES = {
-   'default': {    
-       'ENGINE': 'django.db.backends.mysql', 
-       'NAME': 'SCRAPPING',         
-       'USER': 'ksa',        
-       'PASSWORD': 'ksalepro',   
-       'HOST': 'localhost',   # Or a       
-       'PORT': '3307',     
-   } 
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'SCRAPPING',
+        'USER': 'root',
+        'PASSWORD': '',
+        'HOST': '127.0.0.1',
+        'PORT': '3307',
+        'OPTIONS': {
+            'sql_mode': 'traditional',
+        }
+    }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/2.1/ref/settings/#auth-password-validators
@@ -136,6 +140,9 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, "static"),
+)
 ADMINS = ( 
             ('Arsene ksa', 'soumeua@gmail.com'),  
         )
