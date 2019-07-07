@@ -1,0 +1,127 @@
+
+{% extends "base_account.html" %}
+{% load static %}
+
+{% block nom %} <span>{{user.username}} </span>{% endblock %}
+{% block nom1 %} <span>{{user.username}} </span>{% endblock %}
+{% block nom2 %} <p>{{user.username}} </p>{% endblock %}
+
+{% block navigation %}
+        <li > 
+          <a href="{% url 'accounthome' %}" style="color: white">
+            <i class="fa fa-table "></i><span> Mes Offres D'emplois</span>
+          </a>
+        </li>
+        <li class="active2"> 
+          <a href="{% url 'accountfavoris' %}" style="color: white">
+            <i class="fa fa-heart "></i><span> Mes favoris</span>
+          </a>
+        </li>
+        <li  >
+           
+            <a href="{% url 'accountprofil' %}" style="color: white">
+                <i class="fa fa-user"></i><span>Mon Profil</span> 
+            </a>
+        </li>
+        <li >
+           
+            <a href="{% url 'accountdashboard' %}" style="color: white">
+                <i class="fa fa-dashboard"></i><span>Dashboard</span> 
+            </a>
+        </li>
+{% endblock %} 
+
+{% block content %}       
+        
+        
+                
+<!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <h1 style="color: white; text-shadow: 5px 2px 3px 4px orange; ">
+          i
+         </h1>
+         <ol class="breadcrumb" style="background: black;">
+                <li><a href="{% url 'home' %}" style="text-decoration: underline; color: white;"><i class="fa fa-home"></i> Page Acceuil Site</a></li>
+         </ol>
+    </section>
+
+    <!-- Main content -->
+    <section class="content" style="opacity: 0.9;">
+      <div class="row">
+        <div class="col-xs-12">
+          <div class="box">
+            <div class="box-header">
+              <h1 class="box-title"  style="width: 100%; height: 40px; text-align: center; padding-top: 10px; background: black; color: white;">Mes Favoris</h1>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body" style="overflow-y: scroll; height: 500px;">
+              <table id="example2" class="table table-bordered table-hover" >
+                <thead>
+                <tr>
+                  <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for index, job in offres.items %}  
+                        <tr>
+                          <td>
+                            <li><!-- start message -->
+                                <a href="#">
+                                  <div class="pull-left">
+                                   
+                                  </div>
+                                  <h6>
+                                    <a href="#" style="color: black; font-size: 1.3em; font-weight: bold;">{{job.title}}</a>
+                                  </h6>
+
+                                  <p class="date pull-right-container">{{job.gender}} </p>
+                                  <p class="comment pull-right-container">
+                                        {{job.pubdate}}
+                                  </p>
+                                  <p>
+                                      <span class="pull-right-container">
+                                                      <a data-toggle="collapse" data-parent="#accordion" href="#collapse{{job.id}}"  class="labels pull-right detail">+ Detail</a>
+                                      </span>  
+                                 </p>
+
+                                 <div id="collapse{{job.id}}" class="panel-collapse collapse in pull-right-container" style="margin: auto; margin-top: 30px;">
+                                     <div class="panel-body">
+                                         <p>
+                                            <ul class="list-group li">
+                                                <li class="list-group-item"><span>Compagnie:</span>  {{job.compagny}}</li>
+                                                <li class="list-group-item"><span>Catégorie : </span>{{job.category}}</li>
+                                                <li class="list-group-item"><span>localisation : </span>{{job.localisation}} {{job.town}}</li>
+                                                <li class="list-group-item"><span>Date publication : </span>{{job.pubdate}}</li>
+                                                <li class="list-group-item"><span>Salaire : </span>{{job.salary}}</li>
+                                                <li class="list-group-item"><span>Description : </span>{{job.description}}</li>
+                                            </ul>
+
+                                        </p>                                       
+                                    </div>                                            
+                                </a>
+                            </li>  
+                          </td>
+                        </tr>    
+                   
+            {% endfor %} 
+              </table>
+            </div>
+            <!-- /.box-body -->
+          </div>
+          <!-- /.box -->
+
+          </div>
+        <!-- /.col -->
+      </div>
+      <!-- /.row -->
+    </section>
+    <!-- /.content -->
+  </div>
+  <!-- /.content-wrapper -->
+
+
+
+{% endblock %}
+  

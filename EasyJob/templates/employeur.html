@@ -1,0 +1,132 @@
+
+{% extends "base.html" %}
+{% block liens %}
+                    <div class="collapse navbar-collapse offset" id="navbarSupportedContent">
+                        <ul class="nav navbar-nav menu_nav ml-auto">
+                            <li class="nav-item "><a class="nav-link" href="{% url 'home' %}">Acceuil</a></li> 
+                            <li class="nav-item"><a class="nav-link" href="{% url 'about' %}">A Propos</a></li>
+                            <li class="nav-item"><a class="nav-link" href="{% url 'demandeur_emploi' %}">Chercheur d'emploi</a></li>
+                            <li class="nav-item active"><a class="nav-link" href="{% url 'employeur' %}">Employeur</a></li>
+                            {% if user.is_authenticated %}
+                                   <li class="nav-item "><a class="nav-link" href="{% url 'accounthome' %}">Mon Compte</a></li>
+                             {% else %}
+                                 <li class="nav-item "><a class="nav-link" href="{% url 'connexion' %}">Connexion</a></li>
+                             {% endif %}
+
+
+                            
+                        </ul>
+                    </div> 
+
+
+{% endblock %}
+
+{% block  content %}
+        
+        <!--================Breadcrumb Area =================-->
+        <section class="breadcrumb_area3">
+            <div class="overlay bg-parallax" data-stellar-ratio="0.8" data-stellar-vertical-offset="0" data-background=""></div>
+            <div class="container">
+                <div class="page-cover text-center">
+                    <h2 class="page-cover-tittle">Employeur</h2>
+                    <ol class="breadcrumb">
+                        <li><a href="{% url 'home' %}">Acceuil</a></li>
+                        <li class="active">Employeur</li>
+                    </ol>
+                </div>
+            </div>
+        </section>
+        <!--================Breadcrumb Area =================-->
+        
+        <!--================ Accomodation Area  =================-->
+        <section class="accomodation_area section_gap">
+            <div class="container">
+                <div class="section_title text-center">
+                    <h2 class="title_color">OBTENEZ LES EMPLOYES DE VOS REVES</h2>
+                    <p style="color: black;">Connectez-vous et Obtenez les profils des demandeurs d'emplois et faites votre choix </p>
+                </div>
+                <div class="row accomodation_two">
+                    
+                    <div class="col-lg-4 col-sm-6">
+                        
+                    </div>
+                    <div class="col-lg-4 col-sm-6">
+                       <a class="book_now_btn button_hover" href="{% url 'connexion' %}">Se connecter  </a>
+                    </div>
+                    <div class="col-lg-4 col-sm-6">
+                        
+                    </div>
+                   
+                </div>
+            </div>
+        </section>
+        <!--================ Accomodation Area  =================-->
+         <!--================ Testimonial Area  =================-->
+        <section class="testimonial_area section_gap">
+            <div class="container">
+                <div class="section_title text-center">
+                    <h2 class="title_color">Temoignage de nos clients clients</h2>
+                </div>
+                <div class="testimonial_slider owl-carousel">
+                    <div class="media testimonial_item">
+                        <img class="rounded-circle" src="image/testtimonial-1.jpg" alt="">
+                        <div class="media-body">
+                            <p>As conscious traveling Paupers we must always be concerned about our dear Mother Earth. If you think about it, you travel across her face, and She is the </p>
+                            <a href="#"><h4 class="sec_h4">Fanny Spencer</h4></a>
+                            <div class="star">
+                                <a href="#"><i class="fa fa-star"></i></a>
+                                <a href="#"><i class="fa fa-star"></i></a>
+                                <a href="#"><i class="fa fa-star"></i></a>
+                                <a href="#"><i class="fa fa-star"></i></a>
+                                <a href="#"><i class="fa fa-star-half-o"></i></a>
+                            </div>
+                        </div>
+                    </div>    
+                    <div class="media testimonial_item">
+                        <img class="rounded-circle" src="image/testtimonial-1.jpg" alt="">
+                        <div class="media-body">
+                            <p>As conscious traveling Paupers we must always be concerned about our dear Mother Earth. If you think about it, you travel across her face, and She is the </p>
+                            <a href="#"><h4 class="sec_h4">Fanny Spencer</h4></a>
+                            <div class="star">
+                                <a href="#"><i class="fa fa-star"></i></a>
+                                <a href="#"><i class="fa fa-star"></i></a>
+                                <a href="#"><i class="fa fa-star"></i></a>
+                                <a href="#"><i class="fa fa-star"></i></a>
+                                <a href="#"><i class="fa fa-star-half-o"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="media testimonial_item">
+                        <img class="rounded-circle" src="image/testtimonial-1.jpg" alt="">
+                        <div class="media-body">
+                            <p>As conscious traveling Paupers we must always be concerned about our dear Mother Earth. If you think about it, you travel across her face, and She is the </p>
+                            <a href="#"><h4 class="sec_h4">Fanny Spencer</h4></a>
+                            <div class="star">
+                                <a href="#"><i class="fa fa-star"></i></a>
+                                <a href="#"><i class="fa fa-star"></i></a>
+                                <a href="#"><i class="fa fa-star"></i></a>
+                                <a href="#"><i class="fa fa-star"></i></a>
+                                <a href="#"><i class="fa fa-star-half-o"></i></a>
+                            </div>
+                        </div>
+                    </div>    
+                    <div class="media testimonial_item">
+                        <img class="rounded-circle" src="image/testtimonial-1.jpg" alt="">
+                        <div class="media-body">
+                            <p>As conscious traveling Paupers we must always be concerned about our dear Mother Earth. If you think about it, you travel across her face, and She is the </p>
+                            <a href="#"><h4 class="sec_h4">Fanny Spencer</h4></a>
+                            <div class="star">
+                                <a href="#"><i class="fa fa-star"></i></a>
+                                <a href="#"><i class="fa fa-star"></i></a>
+                                <a href="#"><i class="fa fa-star"></i></a>
+                                <a href="#"><i class="fa fa-star"></i></a>
+                                <a href="#"><i class="fa fa-star-half-o"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!--================ Testimonial Area  =================-->
+        
+{% endblock %}

@@ -1,0 +1,191 @@
+{% load static %}
+
+<!doctype html>
+<html lang="en">
+    
+    {% block head  %}
+        <head>
+            <!-- Required meta tags -->
+            <meta charset="utf-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+            <link rel="icon" href="{% static 'staticfile/logo.png'%} " type="image/png">
+            <title>EASYJOB</title>
+            <!-- Bootstrap CSS -->
+            <link rel="stylesheet" href="{% static 'staticfile/css/bootstrap.css '%}">
+            <link rel="stylesheet" href="{% static 'staticfile/css/bootstrap.min.css '%}">
+            <link rel="stylesheet" href="{% static 'staticfile/css/animate.css '%}">
+            <link rel="stylesheet" href="{% static 'staticfile/vendors/linericon/style.css'%}">
+            <link rel="stylesheet" href="{% static 'staticfile/css/font-awesome.min.css '%}">
+            <link rel="stylesheet" href="{% static 'staticfile/vendors/owl-carousel/owl.carousel.min.css'%}">
+            <link rel="stylesheet" href="{% static 'staticfile/vendors/bootstrap-datepicker/bootstrap-datetimepicker.min.css'%}">
+            <link rel="stylesheet" href="{% static 'staticfile/vendors/nice-select/css/nice-select.css'%}">
+            <link rel="stylesheet" href="{% static 'staticfile/vendors/owl-carousel/owl.carousel.min.css'%}">
+            <!-- main css -->
+            <link rel="stylesheet" href="{% static 'staticfile/css/style.css'%}">
+            <link rel="stylesheet" href="{% static 'staticfile/css/responsive.css'%}">
+        </head> 
+        <style>
+            .li li{
+                border: 0px;
+                border-radius: 0px;
+            }
+            .li span
+            {
+                font-weight: bold;
+                color: black;
+            }
+            .pagination1 {
+                width: 90%;
+                margin: auto;
+                margin-left: 8.4%;
+            }
+            .pagination1 li{
+                display: inline-block;
+                border: 1px solid #17a2b8;
+                text-align: center;
+                padding-top: 3px;
+                margin: 4px;
+                width: 25px;
+                margin-top: 20px;
+                
+                
+            }
+            .activepagination
+            {   
+                background: black;
+                color: white;
+                font-weight: bold;
+            }
+        </style>
+        
+        {% block css%}
+        
+        {% endblock %}
+    {% endblock %}
+    
+    
+    
+    
+    <body  >
+    {% block header %}
+    
+        
+        <!--================Header Area =================-->
+        <header class="header_area">
+            <div class="container">
+                <nav class="navbar navbar-expand-lg navbar-light">
+                    <!-- Brand and toggle get grouped for better mobile display -->
+                    <a class="navbar-brand logo_h" href="{% url 'home' %}"><img src="{% static 'staticfile/logo.png'%}" alt=""></a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <!-- Collect the nav links, forms, and other content for toggling -->
+                    {% block liens %}   {% endblock %}
+                </nav>
+            </div>
+        </header>
+        <!--================Header Area =================-->
+        
+        
+        
+    {% endblock %}
+        
+        
+    {% block content %}       
+        
+        
+        
+        
+    {% endblock %}
+    
+        
+        
+        
+        
+    {% block footer %}
+    
+    
+           <footer class="footer-area section_gap">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-6  col-md-6 col-sm-6">
+                        <div class="single-footer-widget">
+                            <h6 class="footer_title">A propos de l'agence</h6>
+                            <p> </p>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-6">
+                        <div class="single-footer-widget">
+                            <h6 class="footer_title">Lien de navigaion</h6>
+                            <div class="row">
+                                <div class="col-4">
+                                    <ul class="list_style">
+                                        <li><a href="{% url 'home' %}">Acceuil</a></li>
+                                        <li><a href="{% url 'about' %}">A propos</a></li>
+                                        <li><a href="{% url 'demandeur_emploi' %}">Chercheur d'emploi</a></li>
+                                        <li><a href="{% url 'employeur' %}">Employeur</a></li>
+                                    </ul>
+                                </div>
+                                <div class="col-4">
+                                    <ul class="list_style">
+                                        <li><a href="{% url 'inscription' %}">Inscription</a></li>
+                                        <li><a href="{% url 'connexion' %}">Connexion</a></li>
+                                        <li><a href="#">Blog</a></li>
+                                        <li><a href="#">Contact</a></li>
+                                    </ul>
+                                </div>										
+                            </div>							
+                        </div>
+                    </div>							
+                   
+                <div class="border_line"></div>
+                <div class="row footer-bottom d-flex justify-content-between align-items-center">
+                    <p class="col-lg-8 col-sm-12 footer-text m-0"><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                    Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved |
+                    <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p>
+                    <div class="col-lg-4 col-sm-12 footer-social">
+                        <a href="#"><i class="fa fa-facebook"></i></a>
+                        <a href="#"><i class="fa fa-twitter"></i></a>
+                    </div>
+                </div>
+                </div>
+               </div>
+        </footer>
+		<!--================ End footer Area  =================-->
+        
+
+               
+    {% endblock %}
+                
+                
+                
+    {%block script%}
+                        
+        
+        <!-- Optional JavaScript -->
+        <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+        <script src="{% static 'staticfile/js/jquery-3.2.1.min.js'%}"></script>
+        <script src="{% static 'staticfile/js/popper.js'%}"></script>
+        <script src="{% static 'staticfile/js/bootstrap.min.js'%}"></script>
+        <script src="{% static 'staticfile/vendors/owl-carousel/owl.carousel.min.js'%}"></script>
+        <script src="{% static 'staticfile/js/jquery.ajaxchimp.min.js"></script>
+        <script src="{% static 'staticfile/js/mail-script.js'%}"></script>
+        <script src="{% static 'staticfile/vendors/bootstrap-datepicker/bootstrap-datetimepicker.min.js'%}"></script>
+        <script src="{% static 'staticfile/vendors/nice-select/js/jquery.nice-select.js'%}"></script>
+        <script src="{% static 'staticfile/js/mail-script.js'%}"></script>
+        <script src="{% static 'staticfile/js/stellar.js'%}"></script>
+        <script src="{% static 'staticfile/vendors/lightbox/simpleLightbox.min.js'%}"></script>
+        <script src="{% static 'staticfile/js/custom.js'%}"></script>
+        <script src="{% static 'staticfile/js/wow.min.js'%}"></script>
+        <script src="{% static 'staticfile/wow/dist/js/wow.js'%}"></script>
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js"></script>
+        
+        <script>
+           new WOW().init();
+        </script>
+    {%endblock%}
+  
+    </body>
+</html>

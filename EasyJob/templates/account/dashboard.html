@@ -1,0 +1,428 @@
+
+{% extends "base_account.html" %}
+{% load static %}
+
+{% block nom %} <span>{{user.username}} </span>{% endblock %}
+{% block nom1 %} <span>{{user.username}} </span>{% endblock %}
+{% block nom2 %} <p>{{user.username}} </p>{% endblock %}
+{% block domaine %} <span> {{user.specialite}} </span>{% endblock %} 
+
+{% block navigation %}
+        <li > 
+          <a href="{% url 'accounthome' %}" style="color: white">
+            <i class="fa fa-table "></i><span> Mes Offres D'emplois</span>
+          </a>
+        </li>
+        <li > 
+          <a href="{% url 'accountfavoris' %}" style="color: white">
+            <i class="fa fa-heart "></i><span> Mes favoris</span>
+          </a>
+        </li>
+        <li  >
+           
+            <a href="{% url 'accountprofil' %}" style="color: white">
+                <i class="fa fa-user"></i><span>Mon Profil</span> 
+            </a>
+        </li>
+        <li class="active2" >
+           
+            <a href="{% url 'accountdashboard' %}" style="color: white">
+                <i class="fa fa-dashboard"></i><span>Dashboard</span> 
+            </a>
+        </li>
+{% endblock %} 
+
+{% block content %}       
+        
+        
+                
+<!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <h1 style="color: white; text-shadow: 5px 2px 3px 4px orange; ">
+          i
+         </h1>
+         <ol class="breadcrumb" style="background: black;">
+                <li><a href="{% url 'home' %}" style="text-decoration: underline; color: white; font-weight: bold;"><i class="fa fa-home"></i> Page Acceuil Site</a></li>
+         </ol>
+    </section>
+    <section> 
+     <div class="row">
+        <div class="col-md-8">
+                      <!-- Donut chart -->
+          
+
+        <div class="col-md-12">
+          <!-- Bar chart -->
+          <div class="box box-primary">
+            <div class="box-header with-border">
+              <i class="fa fa-bar-chart-o"></i>
+
+              <h3 class="box-title">Villes ayant le plus de demandes pour {{user.specialite|upper}} </h3>
+
+              <div class="box-tools pull-right">
+                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                </button>
+                <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+              </div>
+            </div>
+            <div class="box-body">
+              <div id="bar-chart" style="height: 300px;"></div>
+            </div>
+            <!-- /.box-body-->
+          </div>
+          <!-- /.box -->
+        </div>
+        <!-- /.col -->
+      </div>
+      <!-- /.row -->
+    </section>
+    <!-- /.content -->
+
+      
+      
+</div>
+
+    <!-- Main content -->
+    
+
+{% endblock %}
+
+{% block scriptchart %}
+        
+
+<!-- FLOT CHARTS -->
+        <script src="{% static 'staticfile/bower_components/Flot/jquery.flot.js'%}"></script>
+        <!-- FLOT RESIZE PLUGIN - allows the chart to redraw when the window is resized -->
+        <script src="{% static 'staticfile/bower_components/Flot/jquery.flot.resize.js' %}"></script>
+        <!-- FLOT PIE PLUGIN - also used to draw donut charts -->
+        <script src="{% static 'staticfile/bower_components/Flot/jquery.flot.pie.js '%}"></script>
+        <!-- FLOT CATEGORIES PLUGIN - Used to draw bar charts -->
+        <script src="{% static 'staticfile/bower_components/Flot/jquery.flot.categories.js'%}"></script>
+
+        <script>
+                function creerCookie(nom,valeur,jour){
+                //Si les jours ont bien été définis
+                if (jour){
+                    //On crée un objet date stockant la date actuelle
+                    var date = new Date();
+                    /*On définit la date d'expiration du cookie -
+                     *Pour cela, on calcule dans combien de millisecondes
+                     *le cookie va expirer et on utilise setTime()*/
+                    date.setTime(date.getTime()+(jour*24*60*60*1000));
+                    //On met la date au "bon" format pour un cookie
+                    var exp = '; expires='+date.toGMTString();
+                }
+                //Si les jours n'ont pas été définis, pas besoin de calcul
+                else var exp = '';
+                document.cookie = nom+'='+valeur+exp+'; path=/';
+            }
+
+            function lireCookie(nom){
+                //On récupère le nom du cookie et le signe "="
+                var nomEtEgal = nom + '=';
+                //Récupère tous les cookies dans un tableau
+                var cTableau = document.cookie.split(';');
+                //Parcourt le tableau créé
+                for(var i=0;i<cTableau.length;i++){
+                    //On récupère tous les noms et valeurs des cookies
+                    var c = cTableau[i];
+                    /*On supprime les espaces potentiels contenus dans c jusqu'à
+                     *tomber sur le nom d'un cookie*/
+                    while (c.charAt(0)==' ') c = c.substring(1,c.length);
+                    /*Maintenant, on cherche le nom correspondant au cookie voulu.
+                     *Dès qu'on l'a trouvé, on n'a plus qu'à récupérer la valeur
+                     *correspondante qui se situe juste après le nom*/
+                    if (c.indexOf(nomEtEgal) == 0) return c.substring(nomEtEgal.length,c.length);
+                }
+                //Si nous n'avons pas trouvé le nom du cookie, c'est qu'il n'existe pas
+                return null;
+            }
+
+            function supprimerCookie(nom){
+                /*On donne le nom du cookie à supprimer, puis on utilise creerCookie()
+                 *pour indiquer une date d'expiration passée pour notre cookie*/
+                creerCookie(nom,'',-1);
+            }
+                
+            //On crée deux cookies
+            creerCookie('Cookie1','Je suis le premier cookie', 7);
+            creerCookie('Cookie2','Je suis un autre cookie', 7);
+
+
+                  $(function () {
+    /*
+     * Flot Interactive Chart
+     * -----------------------
+     */
+    // We use an inline data source in the example, usually data would
+    // be fetched from a server
+    var data = [], totalPoints = 100
+
+    function getRandomData() {
+
+      if (data.length > 0)
+        data = data.slice(1)
+
+      // Do a random walk
+      while (data.length < totalPoints) {
+
+        var prev = data.length > 0 ? data[data.length - 1] : 50,
+            y    = prev + Math.random() * 10 - 5
+
+        if (y < 0) {
+          y = 0
+        } else if (y > 100) {
+          y = 100
+        }
+
+        data.push(y)
+      }
+
+      // Zip the generated y values with the x values
+      var res = []
+      for (var i = 0; i < data.length; ++i) {
+        res.push([i, data[i]])
+      }
+
+      return res
+    }
+
+    var interactive_plot = $.plot('#interactive', [getRandomData()], {
+      grid  : {
+        borderColor: '#f3f3f3',
+        borderWidth: 1,
+        tickColor  : '#f3f3f3'
+      },
+      series: {
+        shadowSize: 0, // Drawing is faster without shadows
+        color     : '#3c8dbc'
+      },
+      lines : {
+        fill : true, //Converts the line chart to area chart
+        color: '#3c8dbc'
+      },
+      yaxis : {
+        min : 0,
+        max : 100,
+        show: true
+      },
+      xaxis : {
+        show: true
+      }
+    })
+
+    var updateInterval = 500 //Fetch data ever x milliseconds
+    var realtime       = 'on' //If == to on then fetch data every x seconds. else stop fetching
+    function update() {
+
+      interactive_plot.setData([getRandomData()])
+
+      // Since the axes don't change, we don't need to call plot.setupGrid()
+      interactive_plot.draw()
+      if (realtime === 'on')
+        setTimeout(update, updateInterval)
+    }
+
+    //INITIALIZE REALTIME DATA FETCHING
+    if (realtime === 'on') {
+      update()
+    }
+    //REALTIME TOGGLE
+    $('#realtime .btn').click(function () {
+      if ($(this).data('toggle') === 'on') {
+        realtime = 'on'
+      }
+      else {
+        realtime = 'off'
+      }
+      update()
+    })
+    /*
+     * END INTERACTIVE CHART
+     */
+
+    /*
+     * LINE CHART
+     * ----------
+     */
+    //LINE randomly generated data
+
+    var sin = [], cos = []
+    for (var i = 0; i < 14; i += 0.5) {
+      sin.push([i, Math.sin(i)])
+      cos.push([i, Math.cos(i)])
+    }
+    var line_data1 = {
+      data : sin,
+      color: '#3c8dbc'
+    }
+    var line_data2 = {
+      data : cos,
+      color: '#00c0ef'
+    }
+    $.plot('#line-chart', [line_data1, line_data2], {
+      grid  : {
+        hoverable  : true,
+        borderColor: '#f3f3f3',
+        borderWidth: 1,
+        tickColor  : '#f3f3f3'
+      },
+      series: {
+        shadowSize: 0,
+        lines     : {
+          show: true
+        },
+        points    : {
+          show: true
+        }
+      },
+      lines : {
+        fill : false,
+        color: ['#3c8dbc', '#f56954']
+      },
+      yaxis : {
+        show: true
+      },
+      xaxis : {
+        show: true
+      }
+    })
+    //Initialize tooltip on hover
+    $('<div class="tooltip-inner" id="line-chart-tooltip"></div>').css({
+      position: 'absolute',
+      display : 'none',
+      opacity : 0.8
+    }).appendTo('body')
+    $('#line-chart').bind('plothover', function (event, pos, item) {
+
+      if (item) {
+        var x = item.datapoint[0].toFixed(2),
+            y = item.datapoint[1].toFixed(2)
+
+        $('#line-chart-tooltip').html(item.series.label + ' of ' + x + ' = ' + y)
+          .css({ top: item.pageY + 5, left: item.pageX + 5 })
+          .fadeIn(200)
+      } else {
+        $('#line-chart-tooltip').hide()
+      }
+       
+
+    })
+    /* END LINE CHART */
+
+    /*
+     * FULL WIDTH STATIC AREA CHART
+     * -----------------
+     */
+    var areaData = [[2, 88.0], [3, 93.3], [4, 102.0], [5, 108.5], [6, 115.7], [7, 115.6],
+      [8, 124.6], [9, 130.3], [10, 134.3], [11, 141.4], [12, 146.5], [13, 151.7], [14, 159.9],
+      [15, 165.4], [16, 167.8], [17, 168.7], [18, 169.5], [19, 168.0]]
+    $.plot('#area-chart', [areaData], {
+      grid  : {
+        borderWidth: 0
+      },
+      series: {
+        shadowSize: 0, // Drawing is faster without shadows
+        color     : '#00c0ef'
+      },
+      lines : {
+        fill: true //Converts the line chart to area chart
+      },
+      yaxis : {
+        show: false
+      },
+      xaxis : {
+        show: false
+      }
+    })
+
+    /* END AREA CHART */
+
+    /*
+     * BAR CHART
+     * ---------
+     */
+            yaounde = Math.round(lireCookie('Yaounde'));
+            douala = Math.round(lireCookie('Douala'));
+            maroua = Math.round(lireCookie('Maroua'));
+            bafoussam = Math.round(lireCookie('Bafoussam'));
+            bamenda = Math.round(lireCookie('Bamenda'));
+            bertoua = Math.round(lireCookie('Bertoua'));
+            garoua = Math.round(lireCookie('Garoua'));
+            buea = Math.round(lireCookie('Buéa'));
+            ebolowa = Math.round(lireCookie('Ebolowa'));
+            ngaoundere = Math.round(lireCookie('Ngaoundere'));
+        
+    var bar_data = {
+      data : [['Yaounde', yaounde], ['Douala', douala], ['Maroua', maroua], ['Bamenda', bamenda], ['Bafoussam', bafoussam], ['Bertoua', bertoua],['Garoua', garoua],['Buea', buea], ['Ebolowa', ebolowa], ['Ngaoundere', ngaoundere]],
+      color: '#3c8dbc'
+    }
+    $.plot('#bar-chart', [bar_data], {
+      grid  : {
+        borderWidth: 1,
+        borderColor: '#f3f3f3',
+        tickColor  : '#f3f3f3'
+      },
+      series: {
+        bars: {
+          show    : true,
+          barWidth: 0.5,
+          align   : 'center'
+        }
+      },
+      xaxis : {
+        mode      : 'categories',
+        tickLength: 0
+      }
+    })
+    /* END BAR CHART */
+
+    /*
+     * DONUT CHART
+     * -----------
+     */
+
+    var donutData = [
+      { label: 'Series2', data: 30, color: '#3c8dbc' },
+      { label: 'Series3', data: 20, color: '#0073b7' },
+      { label: 'Series4', data: 50, color: '#00c0ef' }
+    ]
+    $.plot('#donut-chart', donutData, {
+      series: {
+        pie: {
+          show       : true,
+          radius     : 1,
+          innerRadius: 0.5,
+          label      : {
+            show     : true,
+            radius   : 2 / 3,
+            formatter: labelFormatter,
+            threshold: 0.1
+          }
+
+        }
+      },
+      legend: {
+        show: false
+      }
+    })
+    /*
+     * END DONUT CHART
+     */
+
+  })
+
+  /*
+   * Custom Label formatter
+   * ----------------------
+   */
+  function labelFormatter(label, series) {
+    return '<div style="font-size:13px; text-align:center; padding:2px; color: #fff; font-weight: 600;">'
+      + label
+      + '<br>'
+      + Math.round(series.percent) + '%</div>'
+  }
+        </script>
+{% endblock %}

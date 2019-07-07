@@ -1,0 +1,117 @@
+
+{% extends "base.html" %}
+
+{% block liens %}
+                    <div class="collapse navbar-collapse offset" id="navbarSupportedContent">
+                        <ul class="nav navbar-nav menu_nav ml-auto">
+                            <li class="nav-item "><a class="nav-link" href="{% url 'home' %}">Acceuil</a></li> 
+                            <li class="nav-item"><a class="nav-link" href="{% url 'about' %}">A Propos</a></li>
+                            <li class="nav-item"><a class="nav-link" href="{% url 'demandeur_emploi' %}">Chercheur d'emploi</a></li>
+                            <li class="nav-item"><a class="nav-link" href="{% url 'employeur' %}">Employeur</a></li>
+                            {% if user.is_authenticated %}
+                                   <li class="nav-item "><a class="nav-link" href="{% url 'accounthome' %}">Mon Compte</a></li>
+                             {% else %}
+                                 <li class="nav-item active"><a class="nav-link" href="{% url 'connexion' %}">Connexion</a></li>
+                             {% endif %}
+
+
+                            
+                        </ul>
+                    </div> 
+
+
+{% endblock %}
+
+{% block  content %}
+
+     <!--================Breadcrumb Area =================-->
+        <section class="breadcrumb_area blog_banner_two">
+            <div class="overlay bg-parallax" data-stellar-ratio="0.7" data-stellar-vertical-offset="0" data-background=""></div>
+            <div class="container">
+                <div class="page-cover text-center">
+                    <h2 class="page-cover-tittle">''</h2>
+                    <ol class="breadcrumb">
+                        <li><a href="{% url 'home' %}">''''</a></li>
+                        <li class="active">'''</li>
+                    </ol>
+                </div>
+            </div>
+        </section>
+        <!--================Breadcrumb Area =================-->
+
+    <!-- Start price Area -->
+    <section class="price-area section-gap">
+        <div class="container">
+            <div class="row d-flex justify-content-center">
+                
+            </div>
+            <div class="row" style="margin:auto; margin-top: 60px;">
+                <div class="col-lg-2">
+
+                </div>
+                <div class="col-lg-8  " style="margin-bottom: 30px; padding-bottom: 30px; " >
+                    <div class="section-top-border" style=" margin:auto;  height: 600px; border: 1.6px dotted black; padding: 28px; ">
+                
+                             <div class="col-lg-8 col-md-8" style="margin:auto; margin-bottom:30px; height: 317px;">
+                                <h3 class="mb-30 " style="text-align: center; background: #17a2b8; color: black;">Inscription</h3>  
+                                <form action="{% url 'inscription' %}" method="post" class="form-wrap" style="margin-bottom:50px;">{% csrf_token %}
+                                {% if error_message %}
+                                    <p class="bg-danger p-d ml-b">{{ error_message }}</p>
+                                {% endif %}
+                                <div class="input-group-icon ">
+                                    <div class="icon"><i class="fa fa fa-at" aria-hidden="true"></i></div>
+                                    {{ form.email }}
+                                </div>
+                                <div class="input-group-icon ">
+                                    <div class="icon"><i class="fa 	fa fa-user" aria-hidden="true"></i></div>
+                                    {{ form.username }}
+                                </div>
+                                <div class="input-group-icon ">
+                                    <div class="icon"><i class="fa 	fa fa-unlock-alt" aria-hidden="true"></i></div>
+                                    {{ form.password }}
+                                </div>
+                                <div class="input-group-icon ">
+                                    <div class="icon"><i class="fa 	fa fa-unlock-alt" aria-hidden="true"></i></div>
+                                    {{ form.password_repeat }}
+                                </div>
+                                <div class="input-group-icon ">
+                                    <div class="icon"><i class="fa 	fa fa-link" aria-hidden="true"></i></div>
+                                    {{ form.specialite }}
+                                </div>
+                                <div class="input-group-icon ">
+                                    <div class="icon"><i class="fa 	fa 	fa fa-phone-square" aria-hidden="true"></i></div>
+                                    {{ form.telephone }}
+                                </div>
+                                <div class="row" style="margin: auto;" >
+                                    
+                                    <div class="col-lg-6 col-md-6">
+                                    
+                                       
+                                    
+                                    </div>
+                                    <div class="col-lg-6 col-md-6">
+                                    
+                                       
+                                          <button type="submit"  class="book_now_btn button_hover" href="{% url 'inscription' %}"  style="margin-top: 10px;"  >+ S'inscrire </button>
+                                    
+                                    </div>
+                                
+                                
+                                </div>
+                            </form>
+                            
+                        </div>
+                           
+                        
+                    </div>
+                </div>
+                <div class="col-lg-2">
+
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- End price Area -->
+{% endblock %}
+ 
+                            

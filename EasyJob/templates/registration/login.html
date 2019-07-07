@@ -1,0 +1,102 @@
+
+{% extends "base.html" %}
+{% load static %}
+{% block liens %}
+                    <div class="collapse navbar-collapse offset" id="navbarSupportedContent">
+                        <ul class="nav navbar-nav menu_nav ml-auto">
+                            <li class="nav-item "><a class="nav-link" href="{% url 'home' %}">Acceuil</a></li> 
+                            <li class="nav-item"><a class="nav-link" href="{% url 'about' %}">A Propos</a></li>
+                            <li class="nav-item"><a class="nav-link" href="{% url 'demandeur_emploi' %}">Chercheur d'emploi</a></li>
+                            <li class="nav-item"><a class="nav-link" href="{% url 'employeur' %}">Employeur</a></li>
+                             {% if user.is_authenticated %}
+                                   <li class="nav-item "><a class="nav-link" href="{% url 'accounthome' %}">Mon Compte</a></li>
+                             {% else %}
+                                 <li class="nav-item active"><a class="nav-link" href="{% url 'connexion' %}">Connexion</a></li>
+                             {% endif %}
+
+                            
+                        </ul>
+                    </div> 
+
+
+{% endblock %}
+
+
+{% block  content %}
+        
+        <!--================Breadcrumb Area =================-->
+        <section class="breadcrumb_area blog_banner_two">
+            <div class="overlay bg-parallax" data-stellar-ratio="0.7" data-stellar-vertical-offset="0" data-background=""></div>
+            <div class="container">
+                <div class="page-cover text-center">
+                    <h2 class="page-cover-tittle">''</h2>
+                    <ol class="breadcrumb">
+                        <li><a href="{% url 'home' %}">''''</a></li>
+                        <li class="active">'''</li>
+                    </ol>
+                </div>
+            </div>
+        </section>
+        <!--================Breadcrumb Area =================-->
+    <!-- Start price Area -->
+    <section class="price-area section-gap">
+        <div class="container" style="margin: auto; margin-top: 40px;">
+
+            <div class="row">
+                <div class="col-lg-2">
+
+                </div>
+                <div class="col-lg-8 " style="margin: auto; height: 550px;">
+                    <div class="section-top-border" style="border: 1.4px dotted black; margin:auto; height: 500px; padding: 50px;  ">
+                        <div class="col-lg-8 col-md-8" style="margin:auto; margin-bottom:30px; height: 317px;">
+                            <header style="text-align:center; margin: auto; font-weight:bold; height:95px; margin-bottom:45px; "><img src="{% static 'staticfile/img2/avatar.png'%}"></header>
+                            <form action="{% url 'connexion' %}" method="post" class="form-wrap">{% csrf_token %}
+                                {% if error_message %}
+                                    <p class="bg-danger p-d ml-b">{{ error_message }}</p>
+                                {% endif %}
+                                {% if user.is_authenticated %}
+                                   <p>Vous êtes connecté, {{ user.username }} !</p> 
+                                   <a href="{% url 'deconnexion' %}">logout</a>
+                                {% endif %}
+                                <div class="input-group-icon " style="margin-bottom: 15px;">
+                                    <div class="icon"><i class="fa 	fa fa-user" aria-hidden="true"></i></div>
+                                    {{ form.username }}
+                                </div>
+                                <div class="input-group-icon ">
+                                    <div class="icon"><i class="fa 	fa fa-unlock-alt" aria-hidden="true"></i></div>
+                                    {{ form.password }}
+                                </div>
+                                <div class="row" style="margin: auto;" >
+                                    
+                                    <div class="col-lg-6 col-md-6">
+                                    
+                                        <a class="book_now_btn button_hover" href="{% url 'inscription' %}"  style="margin-top: 20px;">+Créer compte </a>
+                                    
+                                    </div>
+                                    <div class="col-lg-6 col-md-6">
+                                    
+                                       
+                                         <button  type="submit"  class="book_now_btn button_hover" style="margin-top: 20px;" > CONNEXION >  </button>
+                                    
+                                    </div>
+                                
+                                
+                                </div>
+                                <div style="margin:auto; position:relative; margin-top:73px;">
+                                    <a href="# "> Mot de passe oublié</a>
+                                </div>
+                            </form>
+                            
+                        </div>
+
+                    </div>
+                </div>
+                <div class="col-lg-2 ">
+
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- End price Area -->
+
+{%  endblock %}

@@ -1,0 +1,145 @@
+
+{% extends "base.html" %}
+{% load static %}
+{% block liens %}
+                    <div class="collapse navbar-collapse offset" id="navbarSupportedContent">
+                        <ul class="nav navbar-nav menu_nav ml-auto">
+                            <li class="nav-item "><a class="nav-link" href="{% url 'home' %}">Acceuil</a></li> 
+                            <li class="nav-item"><a class="nav-link" href="{% url 'about' %}">A Propos</a></li>
+                            <li class="nav-item active"><a class="nav-link" href="{% url 'demandeur_emploi' %}">Chercheur d'emploi</a></li>
+                            <li class="nav-item "><a class="nav-link" href="{% url 'employeur' %}">Employeur</a></li>
+                            {% if user.is_authenticated %}
+                                   <li class="nav-item "><a class="nav-link" href="{% url 'accounthome' %}">Mon Compte</a></li>
+                             {% else %}
+                                 <li class="nav-item "><a class="nav-link" href="{% url 'connexion' %}">Connexion</a></li>
+                             {% endif %}
+
+                            
+                        </ul>
+                    </div> 
+
+
+{% endblock %}
+
+
+{% block  content %}
+        
+        <!--================Breadcrumb Area =================-->
+        <section class="breadcrumb_area ">
+            <div class="overlay bg-parallax" data-stellar-ratio="0.8" data-stellar-vertical-offset="0" data-background=""></div>
+            <div class="container">
+                <div class="page-cover text-center">
+                    <h2 class="page-cover-tittle f_48">Liste des offres D'emplois</h2>
+                    <ol class="breadcrumb">
+                        <li><a href="{% url 'home' %}">Acceuil</a></li>
+                        <li>Liste des offres</li>
+                    </ol>
+                </div>
+            </div>
+        </section>
+        <!--================Breadcrumb Area =================-->
+        
+        <!--================Blog Area =================-->
+        <section class="blog_area single-post-area">
+            <div class="container">
+                <div class="row" style="margin: auto;">
+                    <div class="col-lg-8 posts-list">
+                
+                        
+                        <div class="comments-area" >
+                            <h4 style="background: #17a2b8; color: white; height: 60px; padding-top: 14px; ">Liste des offres pour {{motcle}} à {{localite}}. <b> {{nb_offres}}</b> Resultat(s)</h4>
+                            <div style=" ">
+                                <div class="panel-group" id="accordion" style="overflow-y: scroll; height: 700px;" >
+                                    {% for job in offres %}               
+                                        
+                                   <div class="panel panel-default" style="margin-bottom: 15px;">
+                                       <div class="comment-list ">
+                                        <div class="panel-heading">
+                                                <div class="panel-title">
+                                                    <div class="single-comment justify-content-between d-flex">
+                                                        <div class="user justify-content-between d-flex">
+
+
+                                                                <div class="thumb">
+                                                            
+                                                                </div>
+                                                                <div class="desc">
+                                                                    <h6><a href="#">{{job.title}}</a></h6>
+                                                                    <p class="date">{{job.gender}} </p>
+                                                                    <p class="comment">
+                                                                       {{ job.pubdate}} {{user_id}}
+                                                                    </p>
+                                                                     <div class="reply-btn">
+                                                                           <a href="{% url 'detail' job.id%}" class="btn-reply text-uppercase" style="width: 70px; border: 0.05px solid; margin-top: 5px;">+ Detail</a> 
+                                                                    </div>
+
+                                                                </div>
+                                                                
+                                                            </div>
+                                                                
+                                                        </div>
+                                                   </div>
+                                            </div>
+                                            
+                                        </div>
+                                        
+                                      </div>
+
+                                {% endfor %} 
+                                    
+                                </div>
+                               <ul class="pagination1" >
+                                {% for  i , p  in pages.items %}
+                                    {% if i < 13 %}
+                                     <li id="{{i}}"><a href="{% url 'liste_offre2' i %}" >{{ i }}</a></li>
+                                    {% endif %}
+                                {% endfor %}   
+                                <li ><a href="#" >> </a></li>
+                                </ul>
+                            </div> 
+                            
+                           
+                            <div class="comment-list">
+                                <div class="single-comment justify-content-between d-flex">
+                                    <div class="user justify-content-between d-flex">
+                                        <div class="thumb">
+                                          <img src="{% static 'staticfile/image/-1.jpg'%}" alt="">
+                                        </div>
+                                        <div class="desc">
+                                            <h5><a href="#"></a></h5>
+                                            <p class="date"></p>
+                                            <p class="comment">
+                                               
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div class="reply-btn">
+                                           
+                                    </div>
+                                </div>
+                            </div>	                                             				
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="blog_right_sidebar" >
+
+                            <aside class="single_sidebar_widget popular_post_widget" style="margin-top: 20px;">
+                                <h3 class="widget_title">Mes Catégories  </h3>
+                            {% for categorie in categorie %}
+                                <div class="media post_item">
+                                    <div class="media-body">
+                                        <a href="{% url 'categorie' categorie %}"><h6 style="color: black; font-size: 0.8em;">{{categorie|upper}}</h6></a>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                                <div class="br"></div>
+                            </aside>
+                            
+                        </div>
+                    </div>
+            
+                </div>
+        </section>
+        <!--================Blog Area =================-->
+        
+{% endblock %}

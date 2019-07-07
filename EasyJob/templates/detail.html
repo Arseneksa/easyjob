@@ -1,0 +1,81 @@
+{% extends "base.html" %}
+{% load static %}
+{% block liens %}
+                    <div class="collapse navbar-collapse offset" id="navbarSupportedContent">
+                        <ul class="nav navbar-nav menu_nav ml-auto">
+                            <li class="nav-item "><a class="nav-link" href="{% url 'home' %}">Acceuil</a></li> 
+                            <li class="nav-item"><a class="nav-link" href="{% url 'about' %}">A Propos</a></li>
+                            <li class="nav-item active"><a class="nav-link" href="{% url 'demandeur_emploi' %}">Chercheur d'emploi</a></li>
+                            <li class="nav-item "><a class="nav-link" href="{% url 'employeur' %}">Employeur</a></li>
+                            {% if user.is_authenticated %}
+                                   <li class="nav-item "><a class="nav-link" href="{% url 'accounthome' %}">Mon Compte</a></li>
+                             {% else %}
+                                 <li class="nav-item "><a class="nav-link" href="{% url 'connexion' %}">Connexion</a></li>
+                             {% endif %}
+
+                            
+                        </ul>
+                    </div> 
+
+
+{% endblock %}
+
+
+{% block  content %}
+        
+        <!--================Breadcrumb Area =================-->
+        <section class="breadcrumb_area ">
+            <div class="overlay bg-parallax" data-stellar-ratio="0.8" data-stellar-vertical-offset="0" data-background=""></div>
+            <div class="container">
+                <div class="page-cover text-center">
+                    <h2 class="page-cover-tittle f_48">Liste des offres D'emplois</h2>
+                    <ol class="breadcrumb">
+                        <li><a href="{% url 'home' %}">Acceuil</a></li>
+                        <li>Detail</li>
+                    </ol>
+                </div>
+            </div>
+        </section>
+    <section class="price-area section-gap">
+        <div class="container">
+            <div class="row" style="margin:auto; margin-top: 20px; margin-bottom: 80px;">
+                <div class="col-lg-1">
+
+                </div>
+                <div class="col-lg-10  " >
+                    <div class="section-top-border" style=" margin:auto; border: 1px dotted;">
+                        
+                       
+                            <h3 class="mb-30 " style="text-align: center; background: #17a2b8; color: white;">DETAILS OFFRE </h3>
+                            
+                            <div  style="margin: auto; margin-top: 20px;  height: 900px; overflow-y: scroll ">
+                    
+                                <div class="panel-body">
+                                    <p class="comment">
+                                        <ul class="list-group li">
+                                          <li class="list-group-item"><span>Compagnie:</span>  {{offre.compagny}}</li>
+                                          <li class="list-group-item"><span>Catégorie : </span>{{offre.category}}</li>
+                                          <li class="list-group-item"><span>localisation : </span>{{offre.localisation}} {{job.town}}</li>
+                                          <li class="list-group-item"><span>Date publication : </span>{{offre.pubdate}}</li>
+                                          <li class="list-group-item"><span>Salaire : </span>{{offre.salary}}</li>
+                                          <li class="list-group-item"><span>Description : </span>{{offre.description|linebreaks}}</li>
+                                         </ul>
+                                
+                                      </p>
+                                </div>
+                          </div>
+                    </div>
+                </div>
+                <div class="col-lg-1">
+
+                </div>
+        </div>
+    </section>
+    <!-- End price Area -->
+
+
+
+
+
+{% endblock %}
+    

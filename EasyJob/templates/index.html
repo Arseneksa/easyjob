@@ -1,0 +1,227 @@
+
+{% extends "base.html" %}
+
+{% load static %}
+ <style>
+      /* Always set the map height explicitly to define the size of the div
+       * element that contains the map. */
+      #map {
+        height: 100%;
+      }
+      /* Optional: Makes the sample page fill the window. */
+      html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+    </style>
+{% block liens %}
+                    <div class="collapse navbar-collapse offset" id="navbarSupportedContent">
+                        <ul class="nav navbar-nav menu_nav ml-auto">
+                            <li class="nav-item active"><a class="nav-link" href="{% url 'home' %}">Acceuil</a></li> 
+                            <li class="nav-item"><a class="nav-link" href="{% url 'about' %}">A Propos</a></li>
+                            <li class="nav-item"><a class="nav-link" href="{% url 'demandeur_emploi' %}">Chercheur d'emploi</a></li>
+                            <li class="nav-item"><a class="nav-link" href="{% url 'employeur' %}">Employeur</a></li>
+                            {% if user.is_authenticated %}
+                                   <li class="nav-item "><a class="nav-link" href="{% url 'accounthome' %}">Mon Compte</a></li>
+                             {% else %}
+                                 <li class="nav-item "><a class="nav-link" href="{% url 'connexion' %}">Connexion</a></li>
+                             {% endif %}
+
+
+                            
+                        </ul>
+                    </div> 
+
+
+{% endblock %}
+
+{% block  content %}
+        <!--================Banner Area =================-->
+        <section class="banner_area">
+            <div class="booking_table d_flex align-items-center">
+            	<div class="overlay bg-parallax" data-stellar-ratio="0.9" data-stellar-vertical-offset="0" data-background=""></div>
+				<div class="container">
+					<div class="banner_content text-center wow zoomIn">
+						<h6>BIENVENU SUR EASYJOB</h6>
+						<h2>TROUVEZ L'EMPLOI DE VOS REVES EN UN CLIC</h2>
+						<p>Recherchez des offres d'emploi dans votre localité .</p>
+						<a class="btn theme_btn  button_hover wow slideInLeft" href="{% url 'demandeur_emploi' %}">Commencer  </a>
+                    </div>
+                    <span id="depart"></span>
+
+                </div>
+            </div>
+            <div class="hotel_booking_area position wow slideInUp" >
+                <div class="container"  >
+                    <form action="{% url 'liste_offre'%}" method="post">{% csrf_token %}
+                        <div class="hotel_booking_table">
+                            <div class="col-md-1" >
+
+                            </div>
+                            <div class="col-md-10" >
+                                <div class="boking_table">
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <div class="book_tabel_item">
+                                                {% if error_message %}
+                                                    <p class="bg-danger p-d ml-b">{{ error_message }}</p>
+                                                {% endif %}
+                                                <div class="form-group">
+                                                    <div class='input-group ' >
+                                                        {{ form1.motcle }}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-4">
+                                            <div class="book_tabel_item">
+                                                <div class="form-group">
+                                                    <div class="input-group">
+                                                       {{ form1.localite }}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4" >
+                                            <div class="book_tabel_item">
+                                                <button type="submit" class="book_now_btn button_hover">Rechercher  </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-1" >
+
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </section>
+        <!--================Banner Area =================-->
+        
+        <!--================ Accomodation Area  =================-->
+        <section class="accomodation_area section_gap">
+            <div class="container wow bounceInUp" style="background: #f8f9fa; margin-top:1px;">
+                <div class="section_title text-center">
+                    <h2 class="title_color">OFFRES LES PLUS PROCHES</h2>
+                </div>
+    
+                  
+                    <div class="row mb_30 wow slideInDown ">
+                        
+                         {% for job in offres_proche %} 
+                        <div class="col-lg-3 col-sm-6">
+                            <div class="accomodation_item text-center" style="border: 1px dotted; padding: 8px; padding-top: 15px; height: 450px; width: 100%;">
+                                <div class="hotel_img">
+                                    <img src="{% static 'job.jpg'  %}" alt="" class="img-home">
+                                    <a href="{% url 'detail' job.id %} " class="btn theme_btn button_hover">+ Detail</a> 
+                                </div>
+                                <a href="#"><h5 style="font-size: 1.09em; color: #17a2b8;">{{job.title}}</h5>  </a>
+                                
+                                <h5  style="font-size: 1em; color: black; text-align: center;">Publié le : {{job.pubdate}}</h5>
+                                <h5  style="font-size: 1em; color: black; text-align: center;">Ville : {{job.localisation}}</h5>
+                               
+                            </div>
+                            
+                        </div>
+                        
+                        {% endfor %}
+                        </div>
+                <div class="section_title text-center" style=" margin-top: 60px;">
+                    <h2 class="title_color">OFFRES LES PLUS RECENTES</h2>
+                </div>
+                  
+                    <div class="row mb_30 wow slideLeft ">
+                         {% for job in offres_recente %} 
+                        <div class="col-lg-3 col-sm-6">
+                            <div class="accomodation_item text-center" style="border: 1px dotted; padding: 8px; padding-top: 15px; height: 450px; width: 100%;">
+                                <div class="hotel_img">
+                                    <img src="{% static 'job.jpg'  %}" alt="" class="img-home">
+                                    <a href="{% url 'detail' job.id %}" class="btn theme_btn button_hover">+ Detail</a>
+                                </div>
+                                <a href="#"><h5 style="font-size: 1.09em; color: #17a2b8;">{{job.title|upper}}</h5>  </a>
+                                
+                                <h5  style="font-size: 1em; color: black; text-align: center;">Publié le : {{job.pubdate}}</h5>
+                                <h5  style="font-size: 1em; color: black; text-align: center;">Ville : {{job.localisation}}</h5>
+                                
+                            </div>
+                        </div>
+                        {% endfor %}
+                        </div>
+            </div>
+                    
+                
+        </section>
+        <!--================ Accomodation Area  =================-->
+        
+        <!--================ Testimonial Area  =================-->
+        <section class="testimonial_area section_gap wow slideInLeft">
+            <div class="container">
+                <div class="section_title text-center">
+                    <h2 class="title_color">Temoignage de nos Visiteurs</h2>
+                </div>
+                <div class="testimonial_slider owl-carousel">
+                    <div class="media testimonial_item">
+                        <img class="rounded-circle" src="image/testtimonial-1.jpg" alt="">
+                        <div class="media-body">
+                            <p>As conscious traveling Paupers we must always be concerned about our dear Mother Earth. If you think about it, you travel across her face, and She is the </p>
+                            <a href="#"><h4 class="sec_h4">Fanny Spencer</h4></a>
+                            <div class="star">
+                                <a href="#"><i class="fa fa-star"></i></a>
+                                <a href="#"><i class="fa fa-star"></i></a>
+                                <a href="#"><i class="fa fa-star"></i></a>
+                                <a href="#"><i class="fa fa-star"></i></a>
+                                <a href="#"><i class="fa fa-star-half-o"></i></a>
+                            </div>
+                        </div>
+                    </div>    
+                    <div class="media testimonial_item">
+                        <img class="rounded-circle" src="image/testtimonial-1.jpg" alt="">
+                        <div class="media-body">
+                            <p>As conscious traveling Paupers we must always be concerned about our dear Mother Earth. If you think about it, you travel across her face, and She is the </p>
+                            <a href="#"><h4 class="sec_h4">Fanny Spencer</h4></a>
+                            <div class="star">
+                                <a href="#"><i class="fa fa-star"></i></a>
+                                <a href="#"><i class="fa fa-star"></i></a>
+                                <a href="#"><i class="fa fa-star"></i></a>
+                                <a href="#"><i class="fa fa-star"></i></a>
+                                <a href="#"><i class="fa fa-star-half-o"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="media testimonial_item">
+                        <img class="rounded-circle" src="image/testtimonial-1.jpg" alt="">
+                        <div class="media-body">
+                            <p>As conscious traveling Paupers we must always be concerned about our dear Mother Earth. If you think about it, you travel across her face, and She is the </p>
+                            <a href="#"><h4 class="sec_h4">Fanny Spencer</h4></a>
+                            <div class="star">
+                                <a href="#"><i class="fa fa-star"></i></a>
+                                <a href="#"><i class="fa fa-star"></i></a>
+                                <a href="#"><i class="fa fa-star"></i></a>
+                                <a href="#"><i class="fa fa-star"></i></a>
+                                <a href="#"><i class="fa fa-star-half-o"></i></a>
+                            </div>
+                        </div>
+                    </div>    
+                    <div class="media testimonial_item">
+                        <img class="rounded-circle" src="image/testtimonial-1.jpg" alt="">
+                        <div class="media-body">
+                            <p>As conscious traveling Paupers we must always be concerned about our dear Mother Earth. If you think about it, you travel across her face, and She is the </p>
+                            <a href="#"><h4 class="sec_h4">Fanny Spencer</h4></a>
+                            <div class="star">
+                                <a href="#"><i class="fa fa-star"></i></a>
+                                <a href="#"><i class="fa fa-star"></i></a>
+                                <a href="#"><i class="fa fa-star"></i></a>
+                                <a href="#"><i class="fa fa-star"></i></a>
+                                <a href="#"><i class="fa fa-star-half-o"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!--================ Testimonial Area  =================-->
+    {% endblock %}
