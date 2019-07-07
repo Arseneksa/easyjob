@@ -82,10 +82,10 @@ DATABASES = {
    'default': {    
        'ENGINE': 'django.db.backends.mysql', 
        'NAME': 'SCRAPPING',         
-       'USER': 'root',        
-       'PASSWORD': '',   
+       'USER': 'ksa',        
+       'PASSWORD': 'ksalepro',   
        'HOST': 'localhost',   # Or a       
-       'PORT': '3306',     
+       'PORT': '3307',     
    } 
 }
 
