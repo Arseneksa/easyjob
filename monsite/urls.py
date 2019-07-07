@@ -14,7 +14,7 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from EasyJob import views
+from EasyJob.views import *
 from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
@@ -23,33 +23,33 @@ app_name = 'easyjob'
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('accounts/', include('django.contrib.auth.urls')), 
-    path('base/', views.base, name="base"),
-    path('', views.index, name="home"),
-    path('default', views.default, name="default"),
-    path('home/<int:job_id>/', views.home2, name="accounthome"),
-    path('home/', views.home, name="accounthome"),
-    path('account/profil', views.profil, name="accountprofil"),
-    path('account/parametre', views.parametre, name="accountparametre"),
-    path('account/suggestion', views.suggestion , name="accountsuggestion"),
-    path('account/profil/competence', views.addcompetence, name="addcompetence"),
-    path('account/profil/localisation', views.addlocalisation, name="addlocalisation"),
-    path('account/profil/diplome', views.adddiplome, name="adddiplome"),
-    path('account/profil/changepass', views.changepass, name="accountchangepass"),
-    path('account/favoris', views.favoris, name="accountfavoris"),
-    path('account/favoris/<int:job_id>/', views.addfavoris, name="addfavoris"),
-    path('account/dashboard', views.dashboard, name="accountdashboard"),
-    path('about/', views.about, name="about"),
-    path('connexion/', views.connexion, name="connexion"),
-    path('connexion/', views.connexion, name="deconnexion"),
-    path('demandeur_emploi/', views.demandeur_emploi, name="demandeur_emploi"),
-    path('employeur/', views.employeur, name="employeur"),
-    path('inscription/', views.inscription, name="inscription"),
-    path('liste_offre/<int:page>/', views.liste_offre2, name="liste_offre2"),
-    path('liste_offre/', views.liste_offre, name="liste_offre"),
-    path('detail/<int:job_id>/', views.detail, name="detail"),
-    path('account/supprimer_competence', views.supprimer_competence, name="supprimer_competence"),
-    path('categorie/<path:categorie>', views.categorie, name="categorie"),
-    path('categorie/<int:page>/<path:categorie>/', views.categorie2, name="categorie2"),
+    path('base/', base, name="base"),
+    path('', index, name="home"),
+    path('default', default, name="default"),
+    path('home/<int:job_id>/', home2, name="accounthome"),
+    path('home/', home, name="accounthome"),
+    path('account/profil', profil, name="accountprofil"),
+    path('account/parametre', parametre, name="accountparametre"),
+    path('account/suggestion', suggestion , name="accountsuggestion"),
+    path('account/profil/competence', addcompetence, name="addcompetence"),
+    path('account/profil/localisation', addlocalisation, name="addlocalisation"),
+    path('account/profil/diplome', adddiplome, name="adddiplome"),
+    path('account/profil/changepass', changepass, name="accountchangepass"),
+    path('account/favoris', favoris, name="accountfavoris"),
+    path('account/favoris/<int:job_id>/', addfavoris, name="addfavoris"),
+    path('account/dashboard', dashboard, name="accountdashboard"),
+    path('about/', about, name="about"),
+    path('connexion/', connexion, name="connexion"),
+    path('connexion/', connexion, name="deconnexion"),
+    path('demandeur_emploi/', demandeur_emploi, name="demandeur_emploi"),
+    path('employeur/', employeur, name="employeur"),
+    path('inscription/', inscription, name="inscription"),
+    path('liste_offre/<int:page>/', liste_offre2, name="liste_offre2"),
+    path('liste_offre/', liste_offre, name="liste_offre"),
+    path('detail/<int:job_id>/', detail, name="detail"),
+    path('account/supprimer_competence', supprimer_competence, name="supprimer_competence"),
+    path('categorie/<path:categorie>', categorie, name="categorie"),
+    path('categorie/<int:page>/<path:categorie>/', categorie2, name="categorie2"),
 ]
 if settings.DEBUG:   
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) 

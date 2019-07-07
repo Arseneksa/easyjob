@@ -9,8 +9,8 @@ from .forms import *
 from django.db.models import Q
 from django.template import RequestContext
 from .models import *
-import requests
-from geopy.geocoders import Nominatim
+#import requests
+#from geopy.geocoders import Nominatim
 from django.core.paginator import Paginator, EmptyPage
 
 
@@ -29,7 +29,7 @@ def index(request):
 #    geo_request_url = 'https://get.geojs.io/v1/ip/geo/' + my_ip + '.json'
 #    geo_request = requests.get(geo_request_url)
 #    geo_data = geo_request.json()
-    
+#    
     error = False
     if request.method == "POST":
         form1 = SearchForm(request.POST)
@@ -39,9 +39,8 @@ def index(request):
             
     else:
         form1 = SearchForm()
-
-#    request.session['ville'] = geo_data['city']
-    request.session['ville'] = 'Yaoundé'
+        
+    request.session['ville'] = 'yaounde'
     #return HttpResponse( )
 #    
     offres_proche = Job.objects.filter(localisation = request.session['ville']).order_by('-pubdate')[0:8]
@@ -457,7 +456,7 @@ def addfavoris(request, job_id):
     
     if not Favoris.objects.filter(user=user , job=job).exists():
         favoris.save()
-        return redirect('accountfavoris')
+        
     
     #offres = Job.objects.filter(town__icontains = 'douala')
     return redirect('accounthome')
